@@ -1,33 +1,32 @@
-package com.lpf.rvdemo
+package com.lpf.rvdemo.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import com.lpf.rvdemo.adapter.SimpleAdapter
+import com.lpf.rvdemo.R
+import com.lpf.rvdemo.base.BaseAdapter
+import com.lpf.rvdemo.widget.TextItem
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: SimpleAdapter
+class TextListActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        recyclerView = findViewById(R.id.rv)
-        adapter = SimpleAdapter()
+        setContentView(R.layout.activity_text_list)
+        val recyclerView = findViewById<RecyclerView>(R.id.rv)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        val adapter = BaseAdapter<TextItem>()
         recyclerView.adapter = adapter
         adapter.setData(getList())
     }
 
-    private fun getList(): List<String> {
-        val list = arrayListOf<String>()
-        list.add("普通列表")
-        list.add("grid列表")
+    private fun getList(): List<TextItem> {
+        val list = arrayListOf<TextItem>()
+        for (index in 0..20) {
+            list.add("普通列表$index")
+        }
         return list
     }
 }
